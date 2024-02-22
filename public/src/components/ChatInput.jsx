@@ -43,7 +43,6 @@ export default function ChatInput({ handleSendMsg }) {
       </div>
       <form
         className="input-container"
-        id="inputForm"
         onSubmit={(event) => sendChat(event)}
       >
         <input

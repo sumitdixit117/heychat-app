@@ -60,7 +60,7 @@ export default function Login() {
   return (
     <>
       <FormContainer>
-        <form action="" id="loginForm" onSubmit={(event) => handleSubmit(event)}>
+        <form action="" onSubmit={(event) => handleSubmit(event)}>
           <div className="brand">
             <img src={Logo} alt="logo" />
             <h1>heychat</h1>
