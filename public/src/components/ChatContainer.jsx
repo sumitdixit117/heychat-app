@@ -166,7 +166,7 @@ const Container = styled.div`
         }
       }
     }
-    .sendt {
+    .sent {
       justify-content: flex-end;
       .content {
         background-color: #4f04ff21;
