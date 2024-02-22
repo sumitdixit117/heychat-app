@@ -97,24 +97,28 @@ export default function Register() {
             placeholder="Username"
             name="username"
             onChange={(e) => handleChange(e)}
+            autoComplete="on"
           />
           <input
             type="email"
             placeholder="Email"
             name="email"
             onChange={(e) => handleChange(e)}
+            autoComplete="on"
           />
           <input
             type="password"
             placeholder="Password"
             name="password"
             onChange={(e) => handleChange(e)}
+            autoComplete="off"
           />
           <input
             type="password"
             placeholder="Confirm Password"
             name="confirmPassword"
             onChange={(e) => handleChange(e)}
+            autoComplete="off"
           />
           <button type="submit">Create User</button>
           <span>

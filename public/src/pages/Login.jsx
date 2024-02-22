@@ -71,12 +71,14 @@ export default function Login() {
             name="username"
             onChange={(e) => handleChange(e)}
             min="3"
+            autoComplete="on"
           />
           <input
             type="password"
             placeholder="Password"
             name="password"
             onChange={(e) => handleChange(e)}
+            autoComplete="off"
           />
           <button type="submit">Log In</button>
           <span>
