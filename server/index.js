@@ -27,8 +27,8 @@ const server = app.listen(PORT, () => console.log(`Server started on ${PORT}`));
 
 const io = socket(server, {
   cors: {
-    origin: "http://localhost:3000",
-    // origin: "https://heychat-app.onrender.com",
+    // origin: "http://localhost:3000",
+    origin: "https://heychat-app.onrender.com",
     credentials: true,
   },
 });
