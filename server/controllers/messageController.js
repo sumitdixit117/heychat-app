@@ -37,3 +37,23 @@ module.exports.addMessage = async (req, res, next) => {
     next(ex);
   }
 };
+
+module.exports.deleteMessages = async (req, res) => {
+  try {
+    const { from, to } = req.body;
+
+    const result = await Messages.deleteMany({
+      users: {
+        $all: [from, to],
+      },
+    });
+
+    if (result.deletedCount > 0) {
+      res.json({ msg: "Messages deleted successfully." });
+    } else {
+      res.json({ msg: "No messages found to delete." });
+    }
+  } catch (ex) {
+    next(ex);
+  }
+};

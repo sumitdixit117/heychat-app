@@ -4,6 +4,7 @@ import ChatInput from "./ChatInput";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import { sendMessageRoute, recieveMessageRoute } from "../utils/APIRoutes";
+import DeleteChat from "./DeleteChat";
 
 export default function ChatContainer({ currentChat, socket }) {
   const [messages, setMessages] = useState([]);
@@ -71,6 +72,10 @@ export default function ChatContainer({ currentChat, socket }) {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  const clearMessages = () => {
+    setMessages([]);
+  };
+
   return (
     <Container>
       <div className="chat-header">
@@ -85,15 +90,14 @@ export default function ChatContainer({ currentChat, socket }) {
             <h3>{currentChat.username}</h3>
           </div>
         </div>
+        <DeleteChat currentChat={currentChat} clearMessages={clearMessages} />
       </div>
       <div className="chat-messages">
         {messages.map((message) => {
           return (
             <div ref={scrollRef} key={uuidv4()}>
               <div
-                className={`message ${
-                  message.fromSelf ? "sent" : "recieved"
-                }`}
+                className={`message ${message.fromSelf ? "sent" : "recieved"}`}
               >
                 <div className="content ">
                   <p>{message.message}</p>
@@ -117,8 +121,8 @@ const Container = styled.div`
     grid-template-rows: 15% 70% 15%;
   }
   .chat-header {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 95% 5%;
     align-items: center;
     padding: 0 2rem;
     .user-details {
