@@ -9,11 +9,14 @@ export default function DeleteChat({ currentChat, clearMessages }) {
     const data = await JSON.parse(
       localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
     );
-    await axios.post(deleteMessagesRoute, {
-      from: data._id,
-      to: currentChat._id,
-    });
-    clearMessages();
+    const confirm = window.confirm("Do you want to clear this chat?");
+    if (confirm) {
+      await axios.post(deleteMessagesRoute, {
+        from: data._id,
+        to: currentChat._id,
+      });
+      clearMessages();
+    }
   };
 
   return (

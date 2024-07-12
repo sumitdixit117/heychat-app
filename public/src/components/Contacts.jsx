@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Logo from "../assets/logo.svg";
 import Logout from "./Logout";
+import axios from "axios";
+import { TiUserDelete } from "react-icons/ti";
+import { deleteUserRoute } from "../utils/APIRoutes";
 
 export default function Contacts({ contacts, changeChat }) {
   const [currentUserName, setCurrentUserName] = useState(undefined);
@@ -23,6 +26,23 @@ export default function Contacts({ contacts, changeChat }) {
     setCurrentSelected(index);
     changeChat(contact);
   };
+
+  const deleteUser = async () => {
+    const id = await JSON.parse(
+      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+    )._id;
+    const confirm = window.confirm(
+      "Are you sure, you want to delete this account?"
+    );
+    if (confirm) {
+      const data = await axios.delete(`${deleteUserRoute}/${id}`);
+      if (data.status === 200) {
+        localStorage.clear();
+        window.location.reload();
+      }
+    }
+  };
+
   return (
     <>
       {currentUserImage && currentUserImage && (
@@ -67,6 +87,9 @@ export default function Contacts({ contacts, changeChat }) {
             <div className="username">
               <h2>{currentUserName}</h2>
             </div>
+            <button onClick={deleteUser}>
+              <TiUserDelete />
+            </button>
           </div>
         </Container>
       )}
@@ -139,10 +162,11 @@ const Container = styled.div`
 
   .current-user {
     background-color: #0d0d30;
-    display: flex;
+    display: grid;
+    grid-template-columns: 20% 68% 12%;
     justify-content: center;
     align-items: center;
-    gap: 2rem;
+    padding: 15px;
     .avatar {
       img {
         height: 4rem;
@@ -150,8 +174,23 @@ const Container = styled.div`
       }
     }
     .username {
+      padding-left: 15px;
       h2 {
         color: white;
+      }
+    }
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      background-color: red;
+      border: none;
+      cursor: pointer;
+      svg {
+        font-size: 1.3rem;
+        color: #ebe7ff;
       }
     }
     @media screen and (min-width: 720px) and (max-width: 1080px) {

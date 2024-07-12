@@ -1,4 +1,5 @@
 const User = require("../models/userModel");
+const Messages = require("../models/messageModel");
 const bcrypt = require("bcrypt");
 
 module.exports.login = async (req, res, next) => {
@@ -79,6 +80,19 @@ module.exports.logOut = (req, res, next) => {
     if (!req.params.id) return res.json({ msg: "User id is required " });
     onlineUsers.delete(req.params.id);
     return res.status(200).send();
+  } catch (ex) {
+    next(ex);
+  }
+};
+
+module.exports.deleteUser = async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+
+    await Messages.deleteMany({ users: userId });
+    await User.findByIdAndDelete(userId);
+
+    res.status(200).json({ message: "User and chats deleted successfully" });
   } catch (ex) {
     next(ex);
   }
